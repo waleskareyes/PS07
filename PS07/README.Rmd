@@ -1,0 +1,39 @@
+---
+title: "Coverpage"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(babynames)
+```
+
+
+## Code:
+
+*This code works to data wrangle the data set "babynames". Therefore, creating a new data set that only highlights babies named Riley or Casey post 1960.* 
+
+```{r babynames}
+babynames_riley_casey_1960_later <- babynames %>%
+  filter(year >= 1960 & (name == "Riley" | name == "Casey"))
+View(babynames_riley_casey_1960_later)
+```
+
+## Plot:
+
+*This plot shows that post 1985 the baby name Riley surged, while the baby name Casey saw an abrupt decline.*
+
+```{r pressure, echo=FALSE}
+ggplot(data = babynames_riley_casey_1960_later, mapping = aes( y = prop, x = year, color = sex))+
+  geom_line()+
+  scale_color_manual( values = c ("orange", "forestgreen"))+
+facet_wrap(~name, nrow = 1) +
+labs(title = "Comparison of Casey and Riley After 1960", y = "Proportion", x = "Year")
+```
+
+## Meme: 
+
+![alt text](https://i.imgflip.com/5w3rcy.jpg)
+
